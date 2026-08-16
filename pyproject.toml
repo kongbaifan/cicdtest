@@ -1,0 +1,26 @@
+# pyproject.toml
+# Python 项目的"身份证 + 说明书"（相当于 Node 项目的 package.json）
+# 打包工具（setuptools）靠它知道：项目叫什么、版本多少、装完提供什么命令
+
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "calculator-demo"
+version = "0.1.0"
+description = "一个学习 CI/CD 的命令行加法计算器"
+requires-python = ">=3.9"
+
+
+# 装完这个包之后，终端里会多出一个 calculator 命令
+# 它等价于运行 python calculator.py
+[project.scripts]
+calculator = "calculator:main"
+
+
+# 告诉打包工具：把这两个 .py 文件打进包里
+[tool.setuptools]
+py-modules = ["calculator", "math_utils"]

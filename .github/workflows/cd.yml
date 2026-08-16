@@ -1,0 +1,46 @@
+# .github/workflows/cd.yml
+# 持续交付（CD）：当你打一个 v 开头的 tag（如 v0.1.0）时，
+# 自动：打包 → 生成 GitHub Release（附上安装包，别人可以直接下载安装）
+#
+# 本地用法：
+#   git tag v0.1.0
+#   git push origin v0.1.0
+
+name: CD（自动发布）
+
+on:
+  push:
+    tags:
+      - "v*"        # 推送任意 v 开头的 tag 时触发
+
+# 给 workflow 写仓库内容的权限（创建 Release 需要）
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安装打包工具
+        run: pip install build
+
+      # 把项目打成 wheel（.whl，可直接 pip 安装）和源码包（.tar.gz）
+      # 产物会生成在 dist/ 目录里
+      - name: 打包
+        run: python -m build
+
+      # 用 tag 名创建一个 Release，把 dist/ 里的安装包作为附件
+      - name: 发布 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
