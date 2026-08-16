@@ -1,0 +1,7 @@
+# requirements.txt
+# 这个项目需要用到的第三方库清单（"购物清单"）
+# 你的业务代码 math_utils.py 其实没用到库，
+# 但"跑测试"需要 pytest，所以把它写在这里。
+# CI 和以后任何人在新电脑上，执行 pip install -r requirements.txt 就能装齐。
+
+pytest

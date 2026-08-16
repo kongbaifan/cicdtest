@@ -1,0 +1,5 @@
+# .gitignore：告诉 git 哪些文件/文件夹不用提交
+# 这些是 Python 和 pytest 运行后自动生成的缓存，不需要进版本库
+
+__pycache__/
+.pytest_cache/
