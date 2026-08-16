@@ -5,4 +5,4 @@
 
 def add(a, b):
     """把两个数相加，返回结果"""
-    return a - b
+    return a + b
